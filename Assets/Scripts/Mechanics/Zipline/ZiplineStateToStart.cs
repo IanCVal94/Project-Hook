@@ -15,7 +15,7 @@ namespace Mechanics
         {
             if (MySM.MyPhysObj.ReachedStart())
             {
-                MySM.MyPhysObj.SetPosStart();
+                // MySM.MyPhysObj.SetPosStart();
                 MySM.Transition<ZiplineStateStart>();
             }
         }

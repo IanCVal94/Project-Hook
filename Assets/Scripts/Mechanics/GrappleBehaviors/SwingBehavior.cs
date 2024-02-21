@@ -33,14 +33,13 @@ namespace Mechanics
             if (anchor == null) anchor = transform;
         }
 
-        public (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) AttachGrapple(Actor grappler,
+        public virtual (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler,
             Vector2 rayCastHit)
         {
             onAttachGrapple?.Invoke();
-            
-            return (GetGrapplePos(rayCastHit), this, GrappleapleType.SWING);
+            return (GetGrapplePos(rayCastHit), this);
         }
-        public Vector2 ContinuousGrapplePos(Vector2 grapplePos, Actor grapplingActor) => GetGrapplePos(grapplePos);
+        public virtual Vector2 ContinuousGrapplePos(Vector2 grapplePos, Actor grapplingActor) => GetGrapplePos(grapplePos);
 
         public Vector2 GetGrapplePos(Vector2 origPos)
         {
@@ -54,6 +53,7 @@ namespace Mechanics
         
         public PhysObj GetPhysObj() => _myPhysObj;
 
-        public void DetachGrapple() {}
+        public virtual void DetachGrapple() {}
+        public GrappleapleType GetGrappleType() => GrappleapleType.SWING;
     }
 }

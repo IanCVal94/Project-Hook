@@ -13,10 +13,10 @@ namespace Mechanics
             p = GetComponent<PhysObj>();
         }
 
-        public (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) AttachGrapple(Actor grappler,
+        public (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler,
             Vector2 rayCastHit)
         {
-            return (rayCastHit, this, GrappleapleType.BREAK);
+            return (rayCastHit, this);
         }
 
         public Vector2 ContinuousGrapplePos(Vector2 grapplePos, Actor grapplingActor) => Vector2.zero;
@@ -24,5 +24,6 @@ namespace Mechanics
         public PhysObj GetPhysObj() => p;
 
         public void DetachGrapple() {}
+        public GrappleapleType GetGrappleType() => GrappleapleType.BREAK;
     }
 }

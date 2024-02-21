@@ -35,7 +35,7 @@ namespace Mechanics
             _sm = GetComponent<PullBehaviorStateMachine>();
         }
 
-        public (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) AttachGrapple(Actor grappler,
+        public (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler,
             Vector2 rayCastHit)
         {
             _sm.CurrState.AttachGrapple(grappler.GetComponent<GrapplerStateMachine>());
@@ -46,7 +46,7 @@ namespace Mechanics
             Vector2 newV = CombineVectorsWithReset(grappler.velocity, apply);
             _myActor.SetVelocity(newV);
             
-            return (transform.position, this, GrappleapleType.PULL);
+            return (transform.position, this);
         }
 
         public Vector2 ContinuousGrapplePos(Vector2 grapplePos, Actor grapplingActor)
@@ -73,6 +73,8 @@ namespace Mechanics
             _sm.CurrState.DetachGrapple();
             _onDetachGrapple?.Invoke();
         }
+
+        public GrappleapleType GetGrappleType() => GrappleapleType.PULL;
 
         public void SetV(Vector2 inputBeforeStickyV)
         {

@@ -132,7 +132,7 @@ namespace A2DK.Phys {
         public virtual bool Push(Vector2 direction, Solid pusher)
         {
             return MoveGeneral(direction, 1, (ps, ds) => {
-                if (ps != pusher) return Squish(ps, ds);
+                if (ps != pusher && OnCollide(ps, ds)) return Squish(ps, ds);
                 return false;
             });
         }

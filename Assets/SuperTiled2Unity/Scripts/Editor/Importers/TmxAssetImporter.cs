@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using SuperTiled2Unity.Editor.Alex;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -21,6 +22,9 @@ namespace SuperTiled2Unity.Editor
     {
         private SuperMap m_MapComponent;
         private Grid m_GridComponent;
+        
+        private Dictionary<int, GameObject> m_objectsById;
+        public Dictionary<int, GameObject> ObjectsById => m_objectsById;
 
         private GlobalTileDatabase m_GlobalTileDatabase;
         private Dictionary<uint, TilePolygonCollection> m_TilePolygonDatabase;
@@ -395,7 +399,7 @@ namespace SuperTiled2Unity.Editor
         {
             // Should any of our objects (from Tiled) be replaced by instantiated prefabs?
             var supers = m_MapComponent.GetComponentsInChildren<SuperObject>();
-            var objectsById = supers.ToDictionary(so => so.m_Id, so => so.gameObject);
+            m_objectsById = supers.ToDictionary(so => so.m_Id, so => so.gameObject);
             var goToDestroy = new List<GameObject>();
 
             foreach (var so in supers)
@@ -412,9 +416,12 @@ namespace SuperTiled2Unity.Editor
                     // Keep the name from Tiled.
                     instance.name = so.gameObject.name;
 
+                    // Alex's custom prefab replacements
+                    if (so.m_Type.StartsWith(CustomPrefabReplacements.PREFIX)) CustomPrefabReplacements.Replace(instance, so);
+                    
                     // Update bookkeeping for later custom property replacement.
                     goToDestroy.Add(so.gameObject);
-                    objectsById[so.m_Id] = instance;
+                    m_objectsById[so.m_Id] = instance;
                 }
             }
 
@@ -428,7 +435,7 @@ namespace SuperTiled2Unity.Editor
                 {
                     foreach (var p in props.m_Properties)
                     {
-                        objectsById[so.m_Id].BroadcastProperty(p, objectsById);
+                        m_objectsById[so.m_Id].BroadcastProperty(p, m_objectsById);
                     }
                 }
             }
@@ -500,7 +507,7 @@ namespace SuperTiled2Unity.Editor
             catch (Exception e)
             {
                 ReportError("Custom importer '{0}' threw an exception. Message = '{1}', Stack:\n{2}", customImporter.GetType().Name, e.Message, e.StackTrace);
-                Debug.LogErrorFormat("Custom importer general exception: {0}", e.Message);
+                Debug.LogErrorFormat("Custom importer general exception: {0} \n \n {1}", e.Message, e.StackTrace);
             }
         }
     }

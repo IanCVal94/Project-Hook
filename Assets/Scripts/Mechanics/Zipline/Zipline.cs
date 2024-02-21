@@ -69,8 +69,8 @@ namespace Mechanics
         public Vector2 VToStart() => (trackStart.position - transform.position).normalized * speed;
         public Vector2 VToEnd() => (trackEnd.position - transform.position).normalized * speed;
 
-        public void SetPosStart() => Move(trackStart.position - transform.position);
-        public void SetPosEnd() => Move(trackEnd.position - transform.position);
+        // public void SetPosStart() => Move(trackStart.position - transform.position);
+        // public void SetPosEnd() => Move(trackEnd.position - transform.position);
         public bool ReceivePunch(Vector2 v)
         {
             _sm.TouchGrapple();

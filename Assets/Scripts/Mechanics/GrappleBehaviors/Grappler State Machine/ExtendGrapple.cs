@@ -46,15 +46,21 @@ namespace Mechanics
                 _grappleDuration += Game.TimeManager.FixedDeltaTime;
                 
                 var updateData = MySM.GrappleExtendUpdate(_grappleDuration, MySM.GetGrappleInputPos());
-                if (updateData.grappleType == GrappleapleType.BREAK) MySM.Transition<Idle>();
                 
                 Input.CurGrappleExtendPos = updateData.curPoint;
                 Input.AttachedTo = updateData.attachedTo;
                 
-                if (Input.AttachedTo != null)
+                if (updateData.attachedTo != null)
                 {
-                    if (updateData.grappleType == GrappleapleType.SWING) MySM.Transition<Swinging>();
-                    if (updateData.grappleType == GrappleapleType.PULL) MySM.Transition<Pulling>();
+                    GrappleapleType grappleType = updateData.attachedTo.GetGrappleType();
+                    
+                    if (grappleType == GrappleapleType.BREAK)
+                    {
+                        MySM.Transition<Idle>();
+                        return;
+                    }
+                    if (grappleType == GrappleapleType.SWING) MySM.Transition<Swinging>();
+                    if (grappleType == GrappleapleType.PULL) MySM.Transition<Pulling>();
                     MySM.OnGrappleAttach?.Invoke();
                 }
             }

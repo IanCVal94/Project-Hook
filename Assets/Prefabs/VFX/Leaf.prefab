@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7470836928445837705
 Transform:
   m_ObjectHideFlags: 0
@@ -45,6 +45,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce10c327808461bb8b6d87e88fea1b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  growthRate: 6
+  fastGrowthRate: 8
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.001953125
+      value: 0.022460938
+      inSlope: 4.6094766
+      outSlope: 4.6094766
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.23068705
+      value: 1.0768046
+      inSlope: 2.4186866
+      outSlope: 2.4186866
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7457874
+      value: 1.1941943
+      inSlope: -0.19559036
+      outSlope: -0.19559036
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.0036316
+      value: 1.0345688
+      inSlope: -0.61907744
+      outSlope: -0.61907744
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!212 &-6809357506797613253
 SpriteRenderer:
   m_ObjectHideFlags: 0

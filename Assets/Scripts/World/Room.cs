@@ -5,25 +5,43 @@ using UnityEngine;
 using Cinemachine;
 
 using ASK.Helpers;
+using UnityEditor;
 
 namespace World {
     public class Room : MonoBehaviour {
         private Collider2D _roomCollider;
-        // public CinemachineVirtualCamera VCam { get; private set; }
-        private VCamManager _vcam;
-
-        public VCamManager VCamManager
+        private Collider2D roomCollider
         {
             get
             {
-                if (_vcam == null) _vcam = GetComponentInChildren<VCamManager>();
-                return _vcam;
+                if (_roomCollider == null) _roomCollider = GetComponentInChildren<Collider2D>();
+                return _roomCollider;
+            }
+        }
+
+        private ElevatorIn _elevatorIn;
+
+        public ElevatorIn ElevatorIn
+        {
+            get
+            {
+                if (_elevatorIn == null) _elevatorIn = GetComponentInChildren<ElevatorIn>();
+                return _elevatorIn;
+            }
+        }
+        
+        private ElevatorOut _elevatorOut;
+
+        public ElevatorOut ElevatorOut
+        {
+            get
+            {
+                if (_elevatorOut == null) _elevatorOut = GetComponentInChildren<ElevatorOut>();
+                return _elevatorOut;
             }
         }
 
         private CinemachineBrain _cmBrain;
-
-        public bool StopTime = true;
         
         private GameObject _grid;
         private static Coroutine _transitionRoutine;
@@ -42,7 +60,6 @@ namespace World {
 
         private void Awake()
         {
-            _roomCollider = GetComponent<Collider2D>();
             _cmBrain = FindObjectOfType<CinemachineBrain>(true);
 
             // _endCutsceneManager = FindObjectOfType<EndCutsceneManager>();
@@ -61,11 +78,6 @@ namespace World {
             EndCutsceneManager.BeegBounceStartEvent -= TurnOffStopTime;
         }*/
 
-        void TurnOffStopTime()
-        {
-            StopTime = false;
-        }
-
         /*private void Update()
         {
             float dist2CameraToRoomCenter = Vector3.SqrMagnitude(Camera.main.transform.position - _roomCollider.transform.position);
@@ -77,27 +89,18 @@ namespace World {
             }
         }*/
 
-        //Source: https://answers.unity.com/questions/501893/calculating-2d-camera-bounds.html
-        public static Bounds OrthograpicBounds(Camera camera)
-        {
-            float screenAspect = (float) Screen.width / (float) Screen.height;
-            float cameraHeight = camera.orthographicSize * 2;
-            Bounds bounds = new Bounds(
-                camera.transform.position,
-                new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
-            return bounds;
-        }
-
         /**
          * Does this room fully contain the bounds of other?
          */
-        public bool ContainsCollider(Collider2D other) => _roomCollider.bounds.Contains(other.bounds.min) && _roomCollider.bounds.Contains(other.bounds.max);
+        public bool ContainsCollider(Collider2D other) => roomCollider.bounds.Contains(other.bounds.min) && roomCollider.bounds.Contains(other.bounds.max);
 
-        public float GetRoomSize()
+        public float GetRoomArea()
         {
-            Vector3 dims = _roomCollider.bounds.size;
+            Vector3 dims = roomCollider.bounds.size;
             return dims.x * dims.y;
         }
+
+        public Vector2 GetExtents() => roomCollider.bounds.extents;
 
         public virtual void TransitionToThisRoom()
         {
@@ -113,31 +116,15 @@ namespace World {
 
         private IEnumerator TransitionRoutine()
         {
-            SwitchCamera();
-            bool shouldStopTime = StopTime;
-            
-            if (shouldStopTime) Time.timeScale = 0f;
+            RoomTransitionEvent?.Invoke(this);
+            // Time.timeScale = 0f;
             /*
              * This is kinda "cheating". Instead of waiting for the camera to be done switching,
              * we're just waiting for the same amount of time as the blend time between cameras.
              */
             yield return new WaitForSecondsRealtime(_cmBrain.m_DefaultBlend.BlendTime);
-            if (shouldStopTime) Time.timeScale = 1f;
+            // Time.timeScale = 1f;
             _transitionRoutine = null;
-            RoomTransitionEvent?.Invoke(this);
-        }
-
-        protected void SwitchCamera()
-        {
-            //L: Inefficient, but not terrible?
-            VCamManager.gameObject.SetActive(true);
-            foreach (Room room in RoomList.Rooms)
-            {
-                if (room != this)
-                {
-                    room.VCamManager.gameObject.SetActive(false);
-                }
-            }
         }
         
         public void Reset()
@@ -188,33 +175,9 @@ namespace World {
             return LogLevel.Error;
         }
 
-        /*public Door[] CalcAdjacentDoors(Vector2 doorAdjacencyTolerance, LayerMask doorLayerMask)
-        {
-            if (_roomCollider == null) _roomCollider = GetComponent<Collider2D>();
-            var bounds = _roomCollider.bounds;
-            Vector2 pointB = (Vector2)bounds.max + doorAdjacencyTolerance;
-            Vector2 pointA = (Vector2)bounds.min - doorAdjacencyTolerance;
-
-            var innerDoors = GetComponentsInChildren<Door>();
-
-            var hits = Physics2D.OverlapAreaAll(pointA, pointB, doorLayerMask);
-            List<Door> ret = new();
-            foreach (var hit in hits)
-            {
-                Door d = hit.GetComponent<Door>();
-                if (d != null && !innerDoors.Contains(d))
-                {
-                    ret.Add(d);
-                }
-            }
-
-            return ret.ToArray();
-        }*/
-
         public Room[] CalcAdjacentRooms(Vector2 roomAdjacencyTolerance, LayerMask roomLayerMask)
         {
-            if (_roomCollider == null) _roomCollider = GetComponent<Collider2D>();
-            var bounds = _roomCollider.bounds;
+            var bounds = roomCollider.bounds;
             Vector2 pointB = (Vector2)bounds.max + roomAdjacencyTolerance;
             Vector2 pointA = (Vector2)bounds.min - roomAdjacencyTolerance;
 
@@ -231,5 +194,24 @@ namespace World {
 
             return ret.ToArray();
         }
+
+        public void SetNextRoom(Room nextRoom)
+        {
+            // ElevatorIn elevatorIn = curRoom.GetComponentInChildren<ElevatorIn>();
+            ElevatorOut.SetDestination(nextRoom);
+            EditorUtility.SetDirty(ElevatorOut);
+        }
+
+        public Vector3 GetCenter() => transform.position + new Vector3(GetExtents().x, -GetExtents().y);
+        
+        #if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            foreach (Room r in AdjacentRooms)
+            {
+                BoxDrawer.DrawBox(r.GetCenter(), r.GetExtents(), Quaternion.identity, Color.red);
+            }
+        }
+        #endif
     }
 }

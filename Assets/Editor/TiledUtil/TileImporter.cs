@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -9,9 +8,8 @@ using Clipper2Lib;
 using SuperTiled2Unity;
 using SuperTiled2Unity.Editor;
 
-using Cinemachine;
 using ASK.Helpers;
-using Editor;
+using Helpers;
 using MyBox;
 using Spawning;
 using UnityEditor;
@@ -21,52 +19,18 @@ using UnityEngine.Tilemaps;
 using World;
 using Vector2 = UnityEngine.Vector2;
 using LIL = TiledUtil.LayerImportLibrary;
-using Random = System.Random;
 
 namespace TiledUtil {
 
     [AutoCustomTmxImporter()]
     public class TileImporter : CustomTmxImporter, IFilterLoggerTarget {
-        private Dictionary<String, GameObject> _prefabReplacements;
+        private PrefabReplacementsData _prefabReplacements;
 
-        private void ImportWindows(GameObject g, int index)
-        {
-            var points = g.GetRequiredComponent<EdgeCollider2D>().points;
-            Vector2 scale;
-            String prefabName;
-            if (Mathf.Abs(points[0].y - points[1].y) < 9)
-            {
-                scale = new Vector2(1, 4);
-                prefabName = "Window Long";
-            }
-            else
-            {
-                scale = new Vector2(4, 1);
-                prefabName = "Window Tall";
-            }
-            
-            var data = LIL.TileToPrefab(g, index, _prefabReplacements[prefabName]);
-            
-            g = data.gameObject;
-            Vector2[] colliderPoints = data.collisionPts;
-            g.GetRequiredComponent<BoxCollider2D>().offset = Vector2.zero;
-            
-            Vector2[] spritePoints = LIL.ColliderPointsToRectanglePoints(g, colliderPoints);
-            
-            Vector2 avgSpritePoint = spritePoints.ComputeAverage();
-            g.transform.localPosition = avgSpritePoint;
-            
-            for (int i = 0; i < spritePoints.Length; ++i) spritePoints[i].Scale(scale);
-            
-            LIL.SetNineSliceSprite(g, spritePoints);
-            LIL.SetLayer(g, "Ground");
-            g.GetRequiredComponent<SpriteRenderer>().SetSortingLayer("Main");
-        }
+        private const string CUSTOM_PREFIX = "C_";
 
         public override void TmxAssetImported(TmxAssetImportedArgs data)
         {
-            var typePrefabReplacements = data.AssetImporter.SuperImportContext.Settings.PrefabReplacements;
-            _prefabReplacements = typePrefabReplacements.ToDictionary(so => so.m_TypeName, so => so.m_Prefab);
+            _prefabReplacements = LoadPrefabReplacements(data);
             SuperMap map = data.ImportedSuperMap;     
             
             //Don't import automap Tilesets
@@ -74,9 +38,9 @@ namespace TiledUtil {
             
             var args = data.AssetImporter;
             var layers = map.GetComponentsInChildren<SuperLayer>();
-            var objects = map.GetComponentsInChildren<SuperObject>();
+            var superObjects = map.GetComponentsInChildren<SuperObject>();
             var doc = XDocument.Load(args.assetPath);
-
+            
             AddRoomComponents(map.transform);
 
             //Applies to the entire tilemap
@@ -118,6 +82,7 @@ namespace TiledUtil {
             
             foreach (SuperLayer layer in layers) {
                 string layerName = layer.name;
+                
                 if (tilemapLayerImports.ContainsKey(layerName))
                 {
                     tilemapLayerImports[layerName](layer.gameObject);
@@ -132,10 +97,66 @@ namespace TiledUtil {
                     tilemapLayerImportsLate[layerName](layer.gameObject);
             }
         }
+        
+        private struct PrefabReplacementsData
+        {
+            public Dictionary<string, GameObject> standard;
+            public Dictionary<string, GameObject> custom;
+        }
+
+        private PrefabReplacementsData LoadPrefabReplacements(TmxAssetImportedArgs data)
+        {
+            var typePrefabReplacements = data.AssetImporter.SuperImportContext.Settings.PrefabReplacements;
+            var wholeDict = typePrefabReplacements.ToDictionary(so => so.m_TypeName, so => so.m_Prefab);
+            return SeparatePrefabReplacements(wholeDict);
+        }
+        
+        private PrefabReplacementsData SeparatePrefabReplacements(Dictionary<string, GameObject> dict)
+        {
+            var data = dict.GroupBy(kv => kv.Key.StartsWith(CUSTOM_PREFIX)).ToList();
+            PrefabReplacementsData ret = new PrefabReplacementsData();
+            ret.standard = data[0].CollapseToDictionary();
+            if (data.Count > 0) ret.custom = data[1].CollapseToDictionary();
+            return ret;
+        }
 
         private void ImportWindowsTilemap(GameObject g)
         {
             g.GetRequiredComponent<TilemapRenderer>().enabled = false;
+        }
+        
+        private void ImportWindows(GameObject g, int index)
+        {
+            var points = g.GetRequiredComponent<EdgeCollider2D>().points;
+            Vector2 scale;
+            String prefabName;
+            if (Mathf.Abs(points[0].y - points[1].y) < 9)
+            {
+                scale = new Vector2(1, 4);
+                prefabName = "Window Long";
+            }
+            else
+            {
+                scale = new Vector2(4, 1);
+                prefabName = "Window Tall";
+            }
+            
+            var data = LIL.TileToPrefab(g, index, _prefabReplacements.standard[prefabName]);
+            
+            g = data.gameObject;
+            Vector2[] colliderPoints = data.collisionPts;
+            g.GetRequiredComponent<BoxCollider2D>().offset = Vector2.zero;
+            
+            Vector2[] spritePoints = LIL.ColliderPointsToRectanglePoints(g, colliderPoints);
+            
+            Vector2 avgSpritePoint = spritePoints.ComputeAverage();
+            g.transform.localPosition = avgSpritePoint;
+            
+            for (int i = 0; i < spritePoints.Length; ++i) spritePoints[i].Scale(scale);
+            
+            LIL.SetNineSliceSprite(g, spritePoints);
+            LIL.SetLayer(g, "Ground");
+            g.GetRequiredComponent<SpriteRenderer>().SetSortingLayer("Main");
         }
 
         private void AddRoomComponents(Transform room)
@@ -152,7 +173,7 @@ namespace TiledUtil {
             }
             mainTilemap.CompressBounds();
             PolygonCollider2D bounds = AddPolygonColliderToRoom(room, mainTilemap);
-            AddVCamManagerToRoom(room, bounds);
+            // AddVCamManagerToRoom(room, bounds);
         }
 
         private Tilemap FindGroundLayerTilemap(Transform parent)
@@ -193,7 +214,7 @@ namespace TiledUtil {
 
         private void AddVCamManagerToRoom(Transform room, PolygonCollider2D boundingShape)
         {
-            GameObject instance = _prefabReplacements["VCamManager"];
+            GameObject instance = _prefabReplacements.standard["VCamManager"];
             instance = (GameObject)PrefabUtility.InstantiatePrefab(instance);
             instance.transform.SetParent(room);
 
@@ -202,21 +223,21 @@ namespace TiledUtil {
 
         private GameObject AddWaterfalCollision(GameObject g, Vector2[] points)
         {
-            GameObject waterfallReplace = _prefabReplacements["WaterfallCollider"];
+            GameObject waterfallReplace = _prefabReplacements.standard["WaterfallCollider"];
             waterfallReplace = LIL.CreatePrefab(waterfallReplace, 0, g.transform);
             LIL.SetEdgeCollider2DPoints(waterfallReplace, points);
             return waterfallReplace;
         }
 
         private void ImportGround(GameObject g, int index) {
-            var ret = LIL.TileToPrefab(g, index, _prefabReplacements["Ground"]);
+            var ret = LIL.TileToPrefab(g, index, _prefabReplacements.standard["Ground"]);
             // AddWaterfalCollision(ret.gameObject, ret.collisionPts);
             LIL.SetLayer(ret.gameObject, "Ground");
         }
         
         private void ImportGlowingMushroom(GameObject g, int index)
         {
-            var ret = LIL.TileToPrefab(g, index, _prefabReplacements["Glowing Mushroom"]);
+            var ret = LIL.TileToPrefab(g, index, _prefabReplacements.standard["Glowing Mushroom"]);
             ret.gameObject.transform.position = ret.collisionPts[2] + new Vector2(4, -12);
             ret.gameObject.transform.localScale = new Vector3(Mathf.Round(UnityEngine.Random.value)*2-1, 1, 1);
         }
@@ -227,12 +248,12 @@ namespace TiledUtil {
         // }
         
         private void ImportSemisolids(GameObject g, int index) {
-            var ret = LIL.TileToPrefab(g, index, _prefabReplacements["Semisolid"]);
+            var ret = LIL.TileToPrefab(g, index, _prefabReplacements.standard["Semisolid"]);
             LIL.SetLayer(ret.gameObject, "Ground");
         }
 
         private void ImportBreakable(GameObject g, int index) {
-            var data = LIL.TileToPrefab(g, index, _prefabReplacements["Breakable"]);
+            var data = LIL.TileToPrefab(g, index, _prefabReplacements.standard["Breakable"]);
             g = data.gameObject;
             Vector2[] colliderPoints = data.collisionPts;
             Vector2[] spritePoints = LIL.ColliderPointsToRectanglePoints(g, colliderPoints); 
@@ -251,7 +272,7 @@ namespace TiledUtil {
 
         private void ImportDoors(GameObject g, int index)
         {
-            var ret = LIL.TileToPrefab(g, index, _prefabReplacements["Door"]);
+            var ret = LIL.TileToPrefab(g, index, _prefabReplacements.standard["Door"]);
             LIL.SetLayer(ret.gameObject, "Default");
         }
 
@@ -308,6 +329,8 @@ namespace TiledUtil {
         void ImportGroundLayerLate(GameObject g)
         {
             Transform main = g.transform.GetChild(0);
+            if (main.childCount < 1) return;
+            
             var pCollider0 = main.GetChild(0).GetComponent<PolygonCollider2D>();
             var pCollider1 = main.GetChild(1).GetComponent<PolygonCollider2D>();
             var p0 = Clipper.PointsToPath(pCollider0.points, pCollider0.transform.position);

@@ -45,14 +45,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fillMap: {fileID: 0}
-  fillTileRef: {fileID: 0}
-  fillTilePosRef: {x: 0, y: 0, z: 0}
   fillTile: {fileID: 11400000, guid: af8c2c43748b5ba4aa178b4250e14dcb, type: 2}
-  topLeftCorner: {x: 0, y: 0}
-  bottomRightCorner: {x: 0, y: 0}
-  floodFill: 1
+  fillPoint: {x: 0, y: 0}
+  offset: 0
   pointsOffset: {x: 0, y: 0}
   pointsMargin: {x: 0, y: 0}
+  innerPoints: []
+  outerPoints: []
+--- !u!1 &2485522059141458766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8532759959596619530}
+  - component: {fileID: 6451697262081643614}
+  m_Layer: 0
+  m_Name: Room Order Baker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8532759959596619530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485522059141458766}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2128879871592275478}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6451697262081643614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2485522059141458766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd31e205fd1247a9ae7a59d76d7862a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rooms: []
+  colors:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0.072267056, g: 0, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  showArrowsElevators: 0
+  showArrowsRooms: 0
+  showLabels: 1
 --- !u!1 &5856780261102274288
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,5 +160,55 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5508363655553585649}
+  - {fileID: 8532759959596619530}
+  - {fileID: 5629938891950540630}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7742579053378700287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5629938891950540630}
+  - component: {fileID: 219081985421686018}
+  m_Layer: 0
+  m_Name: Room Adjacency Baker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5629938891950540630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742579053378700287}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2128879871592275478}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &219081985421686018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7742579053378700287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab4242dfe8845a2a69c013696cd6d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomAdjacencyTolerance: {x: 0, y: 0}
+  RoomLayerMask:
+    serializedVersion: 2
+    m_Bits: 1

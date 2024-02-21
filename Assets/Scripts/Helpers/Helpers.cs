@@ -1,4 +1,6 @@
-﻿using Cinemachine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Cinemachine;
 using UnityEngine;
 
 namespace Helpers
@@ -25,6 +27,11 @@ namespace Helpers
                 v.x * Mathf.Cos(delta) - v.y * Mathf.Sin(delta),
                 v.x * Mathf.Sin(delta) + v.y * Mathf.Cos(delta)
             );
+        }
+        
+        public static Dictionary<K, E> CollapseToDictionary<K, E>(this IGrouping<bool, KeyValuePair<K, E>> grouping)
+        {
+            return grouping.ToDictionary(kv => kv.Key, kv => kv.Value);
         }
     }
 }

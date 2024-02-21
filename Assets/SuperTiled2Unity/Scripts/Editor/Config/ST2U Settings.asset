@@ -69,10 +69,10 @@ MonoBehaviour:
     m_Prefab: {fileID: 7720121506941789161, guid: 1d840b2651ba6144cbb8531b11e4016c, type: 3}
   - m_TypeName: Robot Lame
     m_Prefab: {fileID: 1338866151570392933, guid: 824a1066f530f0b488a6eb94d20eb876, type: 3}
+  - m_TypeName: C_Zipline
+    m_Prefab: {fileID: 3786360777245694845, guid: cda38d1ff7db5a84da3f6772b3cb0205, type: 3}
   - m_TypeName: ZiplineEndpoint
     m_Prefab: {fileID: 1921371437540258611, guid: c8d79e41f1194be48978275b29c2cdf7, type: 3}
-  - m_TypeName: Zipline
-    m_Prefab: {fileID: 3786360777245694845, guid: cda38d1ff7db5a84da3f6772b3cb0205, type: 3}
   - m_TypeName: Lamp
     m_Prefab: {fileID: 7720121506941789161, guid: c45cd198ffb0df74baf8fc8d31c8d805, type: 3}
   - m_TypeName: Desk Lamp
@@ -99,3 +99,9 @@ MonoBehaviour:
     m_Prefab: {fileID: 2980672484842408090, guid: da1ab724dd0b07a47a7cc9cf27159d07, type: 3}
   - m_TypeName: Window Long
     m_Prefab: {fileID: 2258286071102716967, guid: ccbf8bce20e67fb47a5c78352755b46a, type: 3}
+  - m_TypeName: Grapple Point
+    m_Prefab: {fileID: 450426827649827939, guid: e633866161cb22e4196fce4365240b0a, type: 3}
+  - m_TypeName: Elevator Out
+    m_Prefab: {fileID: 6526835098151173831, guid: 02c5705d85a9efb41bebdede51930867, type: 3}
+  - m_TypeName: Elevator In
+    m_Prefab: {fileID: 3829905991207089029, guid: d991e18fae3b1f6479f0164c2fb23d66, type: 3}

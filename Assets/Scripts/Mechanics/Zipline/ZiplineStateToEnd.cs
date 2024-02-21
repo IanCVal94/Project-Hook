@@ -15,7 +15,7 @@ namespace Mechanics
         {
             if (MySM.MyPhysObj.ReachedEnd())
             {
-                MySM.MyPhysObj.SetPosEnd();
+                // MySM.MyPhysObj.SetPosEnd();
                 MySM.Transition<ZiplineStateEnd>();
             }
         }

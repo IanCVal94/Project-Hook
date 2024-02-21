@@ -214,11 +214,10 @@ namespace Mechanics
 
         protected abstract Vector2 MoveXGrapple(Vector2 velocity, Vector2 inputCurrentGrapplePos, int direction);
 
-        protected (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) GrappleExtendUpdate(
+        protected (Vector2 curPoint, IGrappleable attachedTo) GrappleExtendUpdate(
             float grappleDuration, Vector2 grapplePoint)
         {
-            (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) ret = (Vector2.zero, null,
-                GrappleapleType.SWING);
+            (Vector2 curPoint, IGrappleable attachedTo) ret = (Vector2.zero, null);
             Vector2 grappleOrigin = transform.position;
             float dist = GrappleExtendSpeed * grappleDuration;
             Vector2 curPos = (Vector2)transform.position;
@@ -249,13 +248,6 @@ namespace Mechanics
                     }
                 }
             }
-            // if (Mathf.Abs(dir.magnitude) <= dist) ret.hit = true;
-
-            // ret.hit = _core.MyGrappleHook.SetPos(newPoint);
-
-            // _core.MyGrappleHook.Move(dir * _core.GrappleExtendSpeed);
-            // ret.curPoint = _core.MyGrappleHook.transform.position;
-            // if (_core.MyGrappleHook.DidCollide) ret.hit = true;
             return ret;
         }
 

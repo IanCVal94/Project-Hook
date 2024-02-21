@@ -27,6 +27,7 @@ namespace VFX
 
         private void Update()
         {
+            if (attachedTo == null) Destroy(this);
             _lr.SetPosition(0, transform.position);
             _lr.SetPosition(1, attachedTo.position);
         }

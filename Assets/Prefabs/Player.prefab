@@ -6514,6 +6514,8 @@ GameObject:
   - component: {fileID: 7579000643062244329}
   - component: {fileID: 1521698811028767005}
   - component: {fileID: 2008009773146718101}
+  - component: {fileID: 6289014754836188788}
+  - component: {fileID: 6522298940749558036}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -6841,15 +6843,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeathData:
     NoiseProfile: {fileID: 11400000, guid: ef7316f6091ca6f4f84f9223e2b248a8, type: 2}
-    Time: 0.25
+    Time: 0.05
   PunchData:
     NoiseProfile: {fileID: 11400000, guid: ef7316f6091ca6f4f84f9223e2b248a8, type: 2}
-    Time: 0.25
-  DiveData:
-    NoiseProfile: {fileID: 0}
+    Time: 0.05
   CurShake:
     NoiseProfile: {fileID: 0}
-  _mainCam: {fileID: 0}
 --- !u!114 &1521698811028767005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6873,6 +6872,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 082062a2859a46145980cbb2c617375e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6289014754836188788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872153080213010416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bad44696e5d4699a57e2e4283facdb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.5
+--- !u!114 &6522298940749558036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2872153080213010416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5071554395a842ceaca232b584d811bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3213260874437790048

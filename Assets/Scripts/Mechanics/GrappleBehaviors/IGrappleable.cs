@@ -12,7 +12,7 @@ namespace Mechanics {
     
     public interface IGrappleable
     {
-        public (Vector2 curPoint, IGrappleable attachedTo, GrappleapleType grappleType) AttachGrapple(Actor grappler,
+        public (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler,
             Vector2 rayCastHit);
 
         /**
@@ -23,5 +23,7 @@ namespace Mechanics {
         public PhysObj GetPhysObj();
 
         public void DetachGrapple();
+
+        public GrappleapleType GetGrappleType();
     }
 }
