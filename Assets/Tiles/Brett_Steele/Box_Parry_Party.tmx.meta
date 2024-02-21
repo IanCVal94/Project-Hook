@@ -10,14 +10,17 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
   missingFiles: []
   errors:
-  - "Custom importer 'TileImporter' threw an exception. Message = 'Transform child
-    out of bounds', Stack:\n  at (wrapper managed-to-native) UnityEngine.Transform.GetChild(UnityEngine.Transform,int)\r\n 
-    at TiledUtil.TileImporter.ImportGroundLayerLate (UnityEngine.GameObject g) [0x00019]
-    in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:312
+  - "Custom importer 'TileImporter' threw an exception. Message = 'Index was out
+    of range. Must be non-negative and less than the size of the collection.\r\nParameter
+    name: index', Stack:\n  at System.Collections.Generic.List`1[T].get_Item (System.Int32
+    index) [0x00009] in <a3b02d6f9b494355b946095ea1f25c54>:0 \r\n  at TiledUtil.TileImporter.SeparatePrefabReplacements
+    (System.Collections.Generic.Dictionary`2[TKey,TValue] dict) [0x0004f] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:119
+    \r\n  at TiledUtil.TileImporter.LoadPrefabReplacements (SuperTiled2Unity.Editor.TmxAssetImportedArgs
+    data) [0x00059] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:111
     \r\n  at TiledUtil.TileImporter.TmxAssetImported (SuperTiled2Unity.Editor.TmxAssetImportedArgs
-    data) [0x0024b] in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:132
+    data) [0x00000] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:33
     \r\n  at SuperTiled2Unity.Editor.TmxAssetImporter.RunCustomImporterType (System.Type
-    type) [0x00048] in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\SuperTiled2Unity\\Scripts\\Editor\\Importers\\TmxAssetImporter.cs:493 "
+    type) [0x00048] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\SuperTiled2Unity\\Scripts\\Editor\\Importers\\TmxAssetImporter.cs:500 "
   warnings: []
   missingSortingLayers: []
   missingLayers: []
