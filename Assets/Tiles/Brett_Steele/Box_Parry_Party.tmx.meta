@@ -10,14 +10,16 @@ ScriptedImporter:
   script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
   missingFiles: []
   errors:
-  - "Custom importer 'TileImporter' threw an exception. Message = 'Transform child
-    out of bounds', Stack:\n  at (wrapper managed-to-native) UnityEngine.Transform.GetChild(UnityEngine.Transform,int)\r\n 
-    at TiledUtil.TileImporter.ImportGroundLayerLate (UnityEngine.GameObject g) [0x0002f]
-    in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:335
+  - "Custom importer 'TileImporter' threw an exception. Message = 'Object reference
+    not set to an instance of an object', Stack:\n  at TiledUtil.TileImporter.AddVCamManagerToRoom
+    (UnityEngine.Transform room, UnityEngine.PolygonCollider2D boundingShape) [0x00026]
+    in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:200
+    \r\n  at TiledUtil.TileImporter.AddRoomComponents (UnityEngine.Transform room)
+    [0x00059] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:155
     \r\n  at TiledUtil.TileImporter.TmxAssetImported (SuperTiled2Unity.Editor.TmxAssetImportedArgs
-    data) [0x0022c] in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:97
+    data) [0x0009e] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\Editor\\TiledUtil\\TileImporter.cs:80
     \r\n  at SuperTiled2Unity.Editor.TmxAssetImporter.RunCustomImporterType (System.Type
-    type) [0x00050] in C:\\Users\\uncle\\Unity\\Project-Hook\\Assets\\SuperTiled2Unity\\Scripts\\Editor\\Importers\\TmxAssetImporter.cs:500 "
+    type) [0x00048] in C:\\Users\\IanVa\\Hammurabi\\Project-Hook\\Assets\\SuperTiled2Unity\\Scripts\\Editor\\Importers\\TmxAssetImporter.cs:493 "
   warnings: []
   missingSortingLayers: []
   missingLayers: []
