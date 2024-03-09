@@ -47,8 +47,8 @@ MonoBehaviour:
   fillMap: {fileID: 0}
   fillTile: {fileID: 11400000, guid: af8c2c43748b5ba4aa178b4250e14dcb, type: 2}
   fillPoint: {x: 0, y: 0}
-  offset: 0
-  pointsOffset: {x: 0, y: 0}
+  padding: 240
+  pointsOffset: {x: 0, y: -8}
   pointsMargin: {x: 0, y: 0}
   innerPoints: []
   outerPoints: []
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab4242dfe8845a2a69c013696cd6d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RoomAdjacencyTolerance: {x: 0, y: 0}
+  RoomAdjacencyTolerance: {x: 242, y: 137}
   RoomLayerMask:
     serializedVersion: 2
     m_Bits: 1

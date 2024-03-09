@@ -1,0 +1,56 @@
+{
+    "activeFile": "Assets/Tiles/Reinart/Template.tmx",
+    "automapping.whileDrawing": true,
+    "expandedProjectPaths": [
+        "Assets/Tiles/Reinart",
+        "Assets/Tiles",
+        "Assets",
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Assets/Tiles/Reinart/Template.tmx": {
+            "scale": 3,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 370,
+                "y": 236.16666666666669
+            }
+        },
+        "Assets/Tiles/Tilesets/Branches.tsx": {
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/Decoration.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/Mechanics.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/Rocks.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 4
+        },
+        "Assets/Tiles/Tilesets/Semisolid.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/Stalagtite.tsx": {
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/Windows.tsx": {
+            "scaleInDock": 1
+        },
+        "Assets/Tiles/Tilesets/city.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "openFiles": [
+        "Assets/Tiles/Reinart/Template.tmx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "Assets/Tiles/Reinart/Template.tmx"
+    ]
+}

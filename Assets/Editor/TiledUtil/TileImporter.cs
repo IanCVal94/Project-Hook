@@ -192,11 +192,16 @@ namespace TiledUtil {
 
         private PolygonCollider2D AddPolygonColliderToRoom(Transform room, Tilemap mainTilemap)
         {
-            Bounds colliderBounds = mainTilemap.localBounds;
+            // Bounds colliderBounds = mainTilemap.localBounds;
 
+            var points = mainTilemap.GetComponentInChildren<EdgeCollider2D>().points;
+            
+            
+            
             PolygonCollider2D roomCollider = room.gameObject.AddComponent<PolygonCollider2D>();
             roomCollider.pathCount = 0;
-            Vector2 boundsMin = colliderBounds.min;
+            roomCollider.points = points;
+            /*Vector2 boundsMin = colliderBounds.min;
             Vector2 boundsMax = colliderBounds.max;
             float alpha = 0.01f;
             roomCollider.SetPath(0, new Vector2[]
@@ -207,7 +212,7 @@ namespace TiledUtil {
                 boundsMin + Vector2.up * colliderBounds.extents.y * 2 + new Vector2(-alpha, alpha),
             });
             roomCollider.offset = mainTilemap.transform.position;
-            roomCollider.isTrigger = true;
+            roomCollider.isTrigger = true;*/
 
             return roomCollider;
         }
@@ -329,7 +334,7 @@ namespace TiledUtil {
         void ImportGroundLayerLate(GameObject g)
         {
             Transform main = g.transform.GetChild(0);
-            if (main.childCount < 1) return;
+            if (main.childCount < 2) return;
             
             var pCollider0 = main.GetChild(0).GetComponent<PolygonCollider2D>();
             var pCollider1 = main.GetChild(1).GetComponent<PolygonCollider2D>();

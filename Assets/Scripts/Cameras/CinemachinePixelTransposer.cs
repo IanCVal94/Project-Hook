@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using Cinemachine;
 using Cinemachine.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace VFX
+namespace Cameras
 {
     /// <summary>
     /// This is a Cinemachine Component in the Body section of the component pipeline.

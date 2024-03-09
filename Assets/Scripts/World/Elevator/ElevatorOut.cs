@@ -7,13 +7,13 @@ namespace World
         [SerializeField] private GameObject walls;
         private Animator _animator;
         private SpriteRenderer _sr;
-
         public Elevator Destination;
 
         private void Awake()
         {
             _animator = GetComponent<Animator>();
             _sr = GetComponent<SpriteRenderer>();
+            _sr.sortingLayerName = "VFX";
         }
 
         void Start()
@@ -21,7 +21,8 @@ namespace World
             walls.SetActive(false);
         }
         
-        private void OnTriggerEnter2D(Collider2D other) {
+        private void OnTriggerEnter2D(Collider2D other) 
+        {
             // Add logic here to check if the player has eliminated all entities!!!!!!!!!!!!!!
             if (other.GetComponent<OnElevatorEnter>() is { } e)
             {

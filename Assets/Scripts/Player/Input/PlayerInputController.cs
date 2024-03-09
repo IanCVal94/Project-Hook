@@ -1,4 +1,5 @@
 using ASK.Core;
+using Cameras;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEditor;
@@ -152,7 +153,7 @@ namespace Player
         public Vector3 GetMousePos()
         {
             Vector2 mPos = Mouse.current.position.ReadValue();
-            return Camera.main.ScreenToWorldPoint(mPos);
+            return CameraProvider.Instance.ScreenToWorldPoint(mPos);
         }
 
         public Vector2 GetStickAim()

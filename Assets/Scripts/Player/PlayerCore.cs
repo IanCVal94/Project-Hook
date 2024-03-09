@@ -96,7 +96,6 @@ namespace Player
         public MovementStateMachine MovementStateMachine { get; private set; }
         public PlayerGrapplerStateMachine GrapplerStateMachine { get; private set; }
         public ParryStateMachine ParryStateMachine { get; private set; }
-        public PlayerInputController Input { get; private set; }
         public PlayerActor Actor { get; private set; }
         public Puncher Puncher { get; private set; }
 
@@ -119,10 +118,23 @@ namespace Player
         }
         
         private Damageable _playerDamageable;
-        public Damageable PlayerDamageable {
-            get {
+
+        public Damageable PlayerDamageable
+        {
+            get
+            {
                 if (_playerDamageable == null) _playerDamageable = GetComponentInChildren<Damageable>();
                 return _playerDamageable;
+            }
+        }
+
+        private PlayerInputController _input;
+        public PlayerInputController Input
+        {
+            get
+            {
+                if (_input == null) _input = GetComponentInChildren<PlayerInputController>();
+                return _input;
             }
         }
 
@@ -134,7 +146,6 @@ namespace Player
             MovementStateMachine = gameObject.GetComponent<MovementStateMachine>();
             GrapplerStateMachine = gameObject.GetComponent<PlayerGrapplerStateMachine>();
             ParryStateMachine = gameObject.GetComponent<ParryStateMachine>();
-            Input = gameObject.GetComponent<PlayerInputController>();
             Actor = gameObject.GetComponent<PlayerActor>();
             AnimManager = GetComponentInChildren<PlayerAnimationStateManager>();
             Puncher = GetComponentInChildren<Puncher>();

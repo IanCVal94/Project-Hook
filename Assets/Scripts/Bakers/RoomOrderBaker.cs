@@ -80,6 +80,8 @@ namespace Bakers
                 Vector3 extents = r.GetExtents();
                 Vector3 boxOrigin = r.GetCenter();
 
+                if (r.ElevatorOut == null || r.ElevatorIn == null) continue;
+                
                 if (showArrowsElevators && r.ElevatorOut.Destination is { } d)
                 {
                     Vector3 from = r.ElevatorOut.transform.position;

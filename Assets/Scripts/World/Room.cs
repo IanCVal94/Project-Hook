@@ -25,7 +25,7 @@ namespace World {
         {
             get
             {
-                if (_elevatorIn == null) _elevatorIn = GetComponentInChildren<ElevatorIn>();
+                if (_elevatorIn == null) _elevatorIn = GetComponentInChildren<ElevatorIn>(true);
                 return _elevatorIn;
             }
         }
@@ -36,7 +36,7 @@ namespace World {
         {
             get
             {
-                if (_elevatorOut == null) _elevatorOut = GetComponentInChildren<ElevatorOut>();
+                if (_elevatorOut == null) _elevatorOut = GetComponentInChildren<ElevatorOut>(true);
                 return _elevatorOut;
             }
         }

@@ -22,10 +22,13 @@ namespace Bakers
         [SerializeField] private TileBase fillTile;
 
         [Tooltip("Position to start floodfilling")]
-        [SerializeField] private Vector2 fillPoint;
+        [SerializeField] private Vector2Int fillPoint;
 
-        [SerializeField] private int offset;
+        [FormerlySerializedAs("offset")]
+        [Tooltip("How much space between rooms and tiles. Should be 0.5*camera size")]
+        [SerializeField] private int padding;
         
+        [Tooltip("Add this offset to every point")]
         [SerializeField] private Vector2 pointsOffset;
         [SerializeField] private Vector2Int pointsMargin;
 
@@ -172,7 +175,7 @@ namespace Bakers
 
         private Paths64 OffsetPath(Paths64 subj)
         {
-            return Clipper.InflatePaths(subj, offset, JoinType.Miter, EndType.Polygon, 100);
+            return Clipper.InflatePaths(subj, padding, JoinType.Miter, EndType.Polygon, 100);
         }
 
         private Paths64 CombinePoints(Paths64 subj, int[] p1)
@@ -207,9 +210,17 @@ namespace Bakers
         private void OnDrawGizmosSelected()
         {
             Handles.color = Color.red;
-            if (innerPoints != null) Handles.DrawPolyLine(innerPoints.ToVector3());
-            if (outerPoints != null) Handles.DrawPolyLine(outerPoints.ToVector3());
-            Gizmos.DrawSphere(fillPoint, 16);
+            DrawPoints(innerPoints);
+            DrawPoints(outerPoints);
+            Gizmos.DrawSphere(fillPoint.ToVector2(), 16);
+        }
+
+        private static void DrawPoints(Vector2[] pts)
+        {
+            if (pts == null) return;
+            Vector3[] pts3 = pts.ToVector3();
+            Handles.DrawPolyLine(pts3);
+            Handles.DrawLine(pts3[^1], pts3[0]);
         }
         #endif
     }

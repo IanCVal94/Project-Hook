@@ -69,6 +69,9 @@ namespace Spawning
 
         private void DeathScreenShake() => ScreenShakeBurst(DeathData);
 
-        public override CinemachineVirtualCamera GetCamera() => CameraProvider.Instance.MainVCamManager.VCams[0];
+        public override CinemachineVirtualCamera GetCamera()
+        {
+            return CameraProvider.Instance.MainVCamManager.GetVCam(LayerMask.NameToLayer("Interactable"));
+        }
     }
 }

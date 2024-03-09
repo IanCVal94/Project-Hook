@@ -5,7 +5,6 @@ using World;
 
 namespace Cameras
 {
-    [RequireComponent(typeof(VCamManager))]
     public class CameraProvider : Singleton<CameraProvider>
     {
         private VCamManager _mainVCamManager;
@@ -14,9 +13,14 @@ namespace Cameras
         {
             get
             {
-                if (_mainVCamManager == null) _mainVCamManager = GetComponent<VCamManager>();
+                if (_mainVCamManager == null) _mainVCamManager = GetComponentInChildren<VCamManager>();
                 return _mainVCamManager;
             }
         }
+
+        [Tooltip("Used for ScreenToWorldPoint conversions")]
+        [MustBeAssigned] [SerializeField] private Camera finalCamera;
+
+        public Vector3 ScreenToWorldPoint(Vector2 v) => finalCamera.ScreenToWorldPoint(v);
     }
 }

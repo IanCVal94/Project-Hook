@@ -6887,6 +6887,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.5
+  timeScaleAmount: 0.1
+  launchMultiplier: 10
+  timeToClick: 6
 --- !u!114 &6522298940749558036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17676,8 +17679,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -3.11485, y: 3.8320997, z: 0}
-    m_Extent: {x: 19.42765, y: 10.8986, z: 0}
+    m_Center: {x: -3.1014996, y: 3.8387, z: 0}
+    m_Extent: {x: 19.4277, y: 10.9092, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -18027,8 +18030,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -7.6703005, y: 4.01785, z: 0}
-    m_Extent: {x: 30.711102, y: 17.687649, z: 0}
+    m_Center: {x: -7.6666994, y: 4.0113, z: 0}
+    m_Extent: {x: 30.714401, y: 17.6748, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

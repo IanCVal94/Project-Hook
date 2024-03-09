@@ -123,6 +123,14 @@ public class PlayerActor : Actor, IFilterLoggerTarget {
             velocityY *= _core.JumpCutMultiplier;
         }
     }
+    
+    public void Boost(Vector2 launchInfo, float launchMultiplier)
+    {
+        //ApplyVelocity(launchInfo*launchMultiplier);
+
+        velocity = velocity+(launchInfo*launchMultiplier);
+        //OnElevator?.Invoke(transform.position);
+    }
     #endregion
 
     #region  Death

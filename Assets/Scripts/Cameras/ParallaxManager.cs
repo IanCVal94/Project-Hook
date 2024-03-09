@@ -5,7 +5,9 @@ using UnityEngine.Rendering;
 using UnityEngine.Experimental.Rendering;
 using System.Reflection;
 using System.Linq;
+using Cameras;
 using Cinemachine;
+using MyBox;
 using UnityEngine.Rendering.Universal;
 using VFX;
 
@@ -19,12 +21,9 @@ public class ParallaxManager : MonoBehaviour
 
     [SerializeField] private bool pixelate = true;
 
-    private CinemachineBrain _brain;
+    private CinemachineVirtualCamera _mainVCam => CameraProvider.Instance.MainVCamManager.GetVCam(layer);
 
-    private void Awake()
-    {
-        _brain = cam.GetComponent<CinemachineBrain>();
-    }
+    [Layer] [MustBeAssigned] [SerializeField] private int layer;
 
     // Unity calls this method automatically when it enables this component
     private void OnEnable()
@@ -46,10 +45,10 @@ public class ParallaxManager : MonoBehaviour
         if (camera == cam)
         {
             float quadOldZ = quad.localPosition.z;
-            CinemachineVirtualCamera vcam = (CinemachineVirtualCamera)_brain.ActiveVirtualCamera;
-            Vector3 quadPos = -vcam.GetCinemachineComponent<CinemachinePixelTransposer>().Offset;
-            quadPos.z = quadOldZ;
-            quad.localPosition = quadPos;
+            // Vector3 quadPos = -_mainVCam.GetCinemachineComponent<CinemachinePixelTransposer>().Offset;
+            
+            // quadPos.z = quadOldZ;
+            // quad.localPosition = quadPos;
         }
     }
     
