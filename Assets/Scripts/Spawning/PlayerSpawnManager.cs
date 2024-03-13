@@ -65,6 +65,14 @@ namespace Spawning
             _core.DeathManager.OnPlayerRespawn -= Respawn;
         }
 
+        private void FixedUpdate()
+        {
+            if (_currentRoom != null && _currentRoom.GetComponentInChildren<UnlockEnemy>() == null)
+            {
+                _currentRoom.ElevatorOut.Unlock();
+            }
+        }
+
         public void Respawn()
         {
             if (CurrentSpawnPoint != null)

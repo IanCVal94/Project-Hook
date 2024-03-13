@@ -23,6 +23,11 @@ namespace VFX
         {
             _scarfPoints = GetComponentsInChildren<ScarfPoint>();
             _attachedActor = GetComponentInParent<Actor>();
+            if (_attachedActor == null)
+            {
+                DestroyChildrenRuntime();
+                Destroy(this);
+            }
             transform.parent = _attachedActor.transform.parent;
         }
 

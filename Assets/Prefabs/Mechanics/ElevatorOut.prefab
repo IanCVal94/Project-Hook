@@ -392,7 +392,7 @@ SpriteRenderer:
   m_SortingLayerID: 1357993775
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5497171302236840022, guid: 125c3036bc874584e996b39957c1690e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 575c998a969cddc49bc25110d226995a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -437,6 +437,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walls: {fileID: 1694123091166695447}
+  Destination: {fileID: 0}
+  openSprite: {fileID: -5497171302236840022, guid: 125c3036bc874584e996b39957c1690e, type: 3}
 --- !u!1 &3643544991038742737
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,8 +623,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.49979997, y: -1.74755, z: 0}
-    m_Extent: {x: 7.4903, y: 5.24655, z: 0}
+    m_Center: {x: 0.50405, y: -1.75195, z: 0}
+    m_Extent: {x: 7.4959497, y: 5.2561502, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0

@@ -29,9 +29,11 @@ namespace Mechanics
         
         void Awake()
         {
-            _myPhysObj = GetComponent<PhysObj>();
+            _myPhysObj = ResolveMyPhysObj();
             if (anchor == null) anchor = transform;
         }
+
+        protected virtual PhysObj ResolveMyPhysObj() => GetComponent<PhysObj>();
 
         public virtual (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler,
             Vector2 rayCastHit)

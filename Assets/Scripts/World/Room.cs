@@ -49,8 +49,8 @@ namespace World {
         //Invoked whenever child objects change. Mostly used for player spawns
         public event Action RecalculateChildren;
 
-        private int _numEnables;
-        [SerializeField] private int _maxEnables = 4;
+        // private int _numEnables;
+        // [SerializeField] private int _maxEnables = 4;
 
         public delegate void OnRoomTransition(Room roomEntering);
         public static event OnRoomTransition RoomTransitionEvent;
@@ -158,14 +158,6 @@ namespace World {
 
         public void RoomSetEnable(bool enable)
         {
-            if (enable)
-            {
-                _numEnables++;
-                if (_numEnables > _maxEnables)
-                {
-                    DestroyAndRecreateGrid();
-                }
-            }
             SetRoomGridEnabled(enable);
             Reset();
         }
@@ -198,8 +190,10 @@ namespace World {
         public void SetNextRoom(Room nextRoom)
         {
             // ElevatorIn elevatorIn = curRoom.GetComponentInChildren<ElevatorIn>();
+            #if UNITY_EDITOR
             ElevatorOut.SetDestination(nextRoom);
             EditorUtility.SetDirty(ElevatorOut);
+            #endif
         }
 
         public Vector3 GetCenter() => transform.position + new Vector3(GetExtents().x, -GetExtents().y);

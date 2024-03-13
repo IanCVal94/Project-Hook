@@ -8,6 +8,7 @@ namespace Mechanics
     public class GrapplePointSwingBehavior : SwingGrappleBehavior
     {
         [SerializeField] private Pendulum pendulum;
+        [SerializeField] private GrapplePoint gPoint;
         
         public override (Vector2 curPoint, IGrappleable attachedTo) AttachGrapple(Actor grappler, Vector2 rayCastHit)
         {
@@ -33,5 +34,7 @@ namespace Mechanics
             pendulum.Simulated = true;
             base.DetachGrapple();
         }
+
+        protected override PhysObj ResolveMyPhysObj() => gPoint;
     }
 }

@@ -14,6 +14,7 @@ namespace World
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             // Add logic here to check if the player has eliminated all entities!!!!!!!!!!!!!!

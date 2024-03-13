@@ -9,6 +9,16 @@ namespace World
         private SpriteRenderer _sr;
         public Elevator Destination;
 
+        private bool _unlocked = false;
+
+        [SerializeField] private Sprite openSprite;
+        
+        public void Unlock()
+        {
+            _unlocked = true;
+            _sr.sprite = openSprite;
+        }
+        
         private void Awake()
         {
             _animator = GetComponent<Animator>();
@@ -24,7 +34,7 @@ namespace World
         private void OnTriggerEnter2D(Collider2D other) 
         {
             // Add logic here to check if the player has eliminated all entities!!!!!!!!!!!!!!
-            if (other.GetComponent<OnElevatorEnter>() is { } e)
+            if (_unlocked && other.GetComponent<OnElevatorEnter>() is { } e)
             {
                 _animator.Play("Close");
                 e.OnEnter(this);
