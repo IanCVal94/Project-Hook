@@ -7,6 +7,7 @@ using ASK.Helpers;
 using Cameras;
 using UnityEngine.InputSystem;
 using World;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -14,22 +15,24 @@ namespace Player
     public class PlayerOnElevatorEnter : OnElevatorEnter
     {
         [SerializeField] private float delay;
-        
+        private Text _timerText; // Reference to UI Text to display timer
+        [SerializeField] private GameObject timerTextbox;
+        [SerializeField] private GameObject destroyTextbox;
+
         private bool hasPlayerInput = false;
         private Timescaler.TimeScale ts;
         public float timeScaleAmount = 0.1f;
-        public float launchMultiplier = 3f; // 3 seems to work very well in general but could be messed with
+        public float launchMultiplier = 3f;
         public float timeToClick = 6f;
-
         [SerializeField] private float minBoost = 50;
 
         private PlayerCore _core;
-
         private Vector2 _prevV;
 
         private void Awake()
         {
             _core = GetComponent<PlayerCore>();
+            _timerText = timerTextbox.GetComponentInChildren<Text>();
         }
 
         public override void OnEnter(ElevatorOut elevator)
@@ -41,38 +44,48 @@ namespace Player
         private void Teleport(ElevatorOut elevator)
         {
             transform.position = elevator.Destination.transform.position;
-            
-            // Start a coroutine to wait for player input
+            timerTextbox.SetActive(true);
+            destroyTextbox.SetActive(true);
             StartCoroutine(WaitForPlayerInput());
         }
 
         private IEnumerator WaitForPlayerInput()
         {
-            // Start the timer
-            float timer = 0f;
+            float timer = timeToClick;
 
             // Apply the time scale
             ts = Game.TimeManager.ApplyTimescale(timeScaleAmount, 2);
 
-            // Continue looping until player input is received or the timer reaches 10 seconds
-            while (!_core.Input.GetParryInput() && timer < timeToClick)
+            while (timer > 0 && !_core.Input.GetParryInput())
             {
-                // Increment the timer
-                timer += Time.unscaledDeltaTime;
+                // Decrement the timer
+                timer -= Time.unscaledDeltaTime;
 
-                yield return null; // Yield execution until the next frame
+                // Update UI Text
+                if (_timerText != null)
+                {
+                    _timerText.text = Mathf.CeilToInt(timer).ToString(); // Display timer
+                }
+
+                yield return null;
+            }
+
+            // Reset UI Text when timer is finished
+            if (_timerText != null)
+            {
+                timerTextbox.SetActive(false);
+                destroyTextbox.SetActive(false);
             }
 
             // Player input received
             Vector3 mousePosition = _core.Input.GetAimPos(_core.Actor.transform.position);
-            //Cursor.lockState = CursorLockMode.None;
             Game.TimeManager.RemoveTimescale(ts);
 
             // Calculate the direction to the mouse position
             Vector2 launchDirection = (mousePosition - transform.position).normalized;
 
             float magnitude = Mathf.Max(_prevV.magnitude * launchMultiplier, minBoost);
-            
+
             // Call the Boost method on playerActor with launchDirection as parameter
             _core.Actor.SetVelocity(launchDirection * magnitude);
         }
