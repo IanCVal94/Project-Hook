@@ -109,10 +109,15 @@ namespace Mechanics {
             return col;
         }
 
+        public void Break(Vector2 v)
+        {
+            onBreak?.Invoke(v, transform.position);
+            gameObject.SetActive(false);
+        }
+        
         private void BreakAgainst(PhysObj p)
         {
-            onBreak?.Invoke(p.velocity - this.velocity, transform.position);
-            gameObject.SetActive(false);
+            Break(p.velocity - velocity);
         }
 
         public float ApplyXFriction(float prevXVelocity, float frictionAccel)

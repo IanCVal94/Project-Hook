@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6195202465042191282}
   - component: {fileID: 8258128644383782446}
+  - component: {fileID: 4703730546380422566}
   m_Layer: 7
   m_Name: Rb1
   m_TagString: Untagged
@@ -59,6 +60,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!231 &4703730546380422566
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4672002043075889306}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 5, y: 2}
+  m_AutoConfigureDistance: 1
+  m_Distance: 8.944272
+  m_DampingRatio: 0.5
+  m_Frequency: 1
 --- !u!1 &6891072197298983639
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7731592384414491558}
   - component: {fileID: 4536952897909750020}
+  - component: {fileID: 3640245166224360132}
   m_Layer: 7
   m_Name: Rb0
   m_TagString: Untagged
@@ -204,3 +227,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!231 &3640245166224360132
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8808379909662664152}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -5, y: 2}
+  m_AutoConfigureDistance: 1
+  m_Distance: 8.944272
+  m_DampingRatio: 0.5
+  m_Frequency: 1

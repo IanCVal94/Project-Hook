@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d5d1e3733e467bac2ce4f1e1c797dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firstRoom: {fileID: 0}
 --- !u!4 &1652171298
 Transform:
   m_ObjectHideFlags: 0
@@ -586,11 +587,6 @@ Transform:
   - {fileID: 1958642887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1846933886 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7965024588055676892, guid: d329ef306a388864388e6ccea72c7dd2, type: 3}
-  m_PrefabInstance: {fileID: 2598172124447174604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1958642886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -769,7 +765,7 @@ PrefabInstance:
     - target: {fileID: 1144496796198527146, guid: 20c06e6ac75087e4baf1d9f146cd8b5c, type: 3}
       propertyPath: waterContainer
       value: 
-      objectReference: {fileID: 1846933886}
+      objectReference: {fileID: 0}
     - target: {fileID: 7313242362234331064, guid: 20c06e6ac75087e4baf1d9f146cd8b5c, type: 3}
       propertyPath: m_Name
       value: FireAlarm
