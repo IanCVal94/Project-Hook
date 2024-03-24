@@ -15,7 +15,7 @@ namespace Player
     public class PlayerOnElevatorEnter : OnElevatorEnter
     {
         [SerializeField] private float delay;
-        private Text _timerText; // Reference to UI Text to display timer
+        private Text _timerText;
         [SerializeField] private GameObject timerTextbox;
         [SerializeField] private GameObject destroyTextbox;
 
@@ -71,11 +71,7 @@ namespace Player
             }
 
             // Reset UI Text when timer is finished
-            if (_timerText != null)
-            {
-                timerTextbox.SetActive(false);
-                destroyTextbox.SetActive(false);
-            }
+
 
             // Player input received
             Vector3 mousePosition = _core.Input.GetAimPos(_core.Actor.transform.position);
@@ -88,6 +84,10 @@ namespace Player
 
             // Call the Boost method on playerActor with launchDirection as parameter
             _core.Actor.SetVelocity(launchDirection * magnitude);
+            
+            // Reset UI Text when timer is finished
+            timerTextbox.SetActive(false);
+            destroyTextbox.SetActive(false);
         }
     }
 }
