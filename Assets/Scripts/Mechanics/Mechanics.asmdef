@@ -8,7 +8,8 @@
         "Combat",
         "ASKEditor",
         "MyBox",
-        "VFX"
+        "VFX",
+        "World"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

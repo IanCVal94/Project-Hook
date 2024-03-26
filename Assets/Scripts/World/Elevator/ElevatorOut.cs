@@ -15,6 +15,10 @@ namespace World
         
         public void Unlock()
         {
+            if (CheckPlayerInside() is OnElevatorEnter e)
+            {
+                Teleport(e);
+            }
             _unlocked = true;
             _sr.sprite = openSprite;
         }
@@ -30,17 +34,29 @@ namespace World
         {
             walls.SetActive(false);
         }
+
+        private OnElevatorEnter CheckPlayerInside()
+        {
+            Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, transform.localScale, 0);
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.GetComponent<OnElevatorEnter>() is { } e) return e;
+            }
+
+            return null;
+        }
+
+        private void Teleport(OnElevatorEnter e)
+        {
+            _animator.Play("Close");
+            e.OnEnter(this);
+            _sr.sortingLayerName = "VFX";
+            walls.SetActive(true);
+        }
         
         private void OnTriggerEnter2D(Collider2D other) 
         {
-            // Add logic here to check if the player has eliminated all entities!!!!!!!!!!!!!!
-            if (_unlocked && other.GetComponent<OnElevatorEnter>() is { } e)
-            {
-                _animator.Play("Close");
-                e.OnEnter(this);
-                _sr.sortingLayerName = "VFX";
-                walls.SetActive(true);
-            }
+            if (_unlocked && other.GetComponent<OnElevatorEnter>() is { } e) Teleport(e);
         }
 
         public void SetDestination(Room nextRoom)
