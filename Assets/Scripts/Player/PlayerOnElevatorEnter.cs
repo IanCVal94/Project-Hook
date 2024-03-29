@@ -8,6 +8,7 @@ using Cameras;
 using UnityEngine.InputSystem;
 using World;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Player
 {
